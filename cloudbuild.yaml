@@ -9,7 +9,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gke-deploy'
   args:
     - 'run'
-    - '--filename=C:\Program Files\cd-k8s\mydeployment.yaml'
+    - '--filename=C:/Program Files/cd-k8s/mydeployment.yaml'
     - '--image=gcr.io/ringed-rune-412119/github.com/wowmind/simple-deployment-ci-cd:$COMMIT_SHA'
     - '--location=us-central1'
     - '--cluster=cluster-2'
