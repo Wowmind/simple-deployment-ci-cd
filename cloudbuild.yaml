@@ -1,0 +1,16 @@
+steps:
+#Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/ringed-rune-412119/github.com/wowmind/simple-deployment-ci-cd:$COMMIT_SHA', '.']
+#push the image to container registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/ringed-rune-412119/github.com/wowmind/simple-deployment-ci-cd:$COMMIT_SHA']
+#Deploy the container image to k8s
+- name: 'gcr.io/cloud-builders/gke-deploy'
+  args:
+    - 'run'
+    - '--filename=kubernetes-resource-file'
+    - '--image=gcr.io/ringed-rune-412119/github.com/wowmind/simple-deployment-ci-cd:$COMMIT_SHA'
+    - '--location=us-central1'
+    - '--cluster=cluster-2'
+
